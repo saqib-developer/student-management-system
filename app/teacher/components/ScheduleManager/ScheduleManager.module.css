@@ -1,0 +1,99 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.select {
+  flex: 1 1 200px;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.input {
+  flex: 1 1 200px;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.button:disabled {
+  background-color: #6ee7b7;
+  cursor: not-allowed;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.empty {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.listItem {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.itemTopic {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.itemMeta {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.itemLink a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.itemLink a:hover {
+  text-decoration: underline;
+}
