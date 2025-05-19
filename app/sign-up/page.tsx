@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import styles from "./sign-up.module.css";
 
 import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
-import { auth, firestore } from "@/firebase/config"; // adjust path if needed
-import { doc, setDoc } from "firebase/firestore";
+import { auth, firestore } from "@/firebase/config";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 const Signup: React.FC = () => {
   const [name, setName] = useState("");
@@ -27,6 +27,28 @@ const Signup: React.FC = () => {
     setLoading(true);
 
     try {
+      // If they chose "teacher", load the single doc users/teacher
+      if (role === "teacher") {
+        const teacherDocRef = doc(firestore, "users", "teacher");
+        const teacherSnap = await getDoc(teacherDocRef);
+
+        if (!teacherSnap.exists()) {
+          setError("🚫 Teacher list not found. Contact admin.");
+          setLoading(false);
+          return;
+        }
+
+        // data is an object like { '0': 'raees@gmail.com', '1': 'some@gmail.com', ... }
+        const teacherData = teacherSnap.data();
+        const teacherEmails = Object.values(teacherData) as string[];
+
+        if (!teacherEmails.includes(email)) {
+          setError("🚫 You are not authorized as a teacher.");
+          setLoading(false);
+          return;
+        }
+      }
+
       // 1) Create user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
@@ -39,12 +61,8 @@ const Signup: React.FC = () => {
         createdAt: Date.now(),
       });
 
-      // 3) Redirect based on role
-      if (role === "teacher") {
-        router.push("/");
-      } else {
-        router.push("/");
-      }
+      // 3) Redirect (you can customize per-role)
+      router.push("/");
     } catch (err: any) {
       if (err.code === AuthErrorCodes.WEAK_PASSWORD) {
         setError("Password should be at least 6 characters.");
